@@ -5,193 +5,508 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aide - Visualiseur archéologique de Bretagne</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            color: #333;
+        /* Styles inspirés du DSFR (Design System de l'État français) */
+        :root {
+            --blue-france-113: #0a76f6;
+            --blue-france-975: #000091;
+            --grey-50: #f6f6f6;
+            --grey-200: #e5e5e5;
+            --grey-625: #929292;
+            --grey-950: #1e1e1e;
+            --text-default-grey: #161616;
+            --text-title-blue-france: #000091;
+            --border-default-grey: #ddd;
         }
-        .nav-tabs {
+
+        body {
+            font-family: "Marianne", arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            color: var(--text-default-grey);
+            background-color: #fff;
+        }
+
+        .fr-container {
+            max-width: 78rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .fr-tabs {
             list-style: none;
             padding: 0;
-            margin: 0 0 20px 0;
-            border-bottom: 2px solid #ddd;
+            margin: 0 0 2rem 0;
+            border-bottom: 2px solid var(--border-default-grey);
             display: flex;
         }
-        .nav-tabs li {
-            margin-right: 10px;
+
+        .fr-tabs__tab {
+            margin-right: 0;
         }
-        .nav-tabs a {
+
+        .fr-tabs__tab .fr-tabs__btn {
             display: block;
-            padding: 10px 15px;
+            padding: 0.75rem 1.5rem;
             text-decoration: none;
-            color: #666;
-            border: 1px solid #ddd;
+            color: var(--text-default-grey);
+            background: var(--grey-50);
+            border: 1px solid var(--border-default-grey);
             border-bottom: none;
-            background: #f5f5f5;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
             cursor: pointer;
+            border-radius: 0.25rem 0.25rem 0 0;
         }
-        .nav-tabs .active a {
+
+        .fr-tabs__tab--selected .fr-tabs__btn {
             background: white;
-            color: #333;
+            color: var(--text-title-blue-france);
+            border-color: var(--blue-france-975);
             border-bottom: 2px solid white;
             margin-bottom: -2px;
+            font-weight: 700;
         }
-        .tab-content {
+
+        .fr-tabs__btn:hover {
+            background: var(--grey-200);
+            color: var(--text-title-blue-france);
+        }
+
+        .fr-tabs-content {
             background: white;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-top: none;
+            padding: 2rem 0;
         }
-        .tab-pane {
+
+        .fr-tab-pane {
             display: none;
         }
-        .tab-pane.active {
+
+        .fr-tab-pane--selected {
             display: block;
         }
-        h4 {
-            color: #2e5367;
-            border-bottom: 2px solid #2e5367;
-            padding-bottom: 10px;
+
+        .fr-h2 {
+            color: var(--text-title-blue-france);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.25;
         }
-        .feature-list {
-            margin: 15px 0;
+
+        .fr-h3 {
+            color: var(--text-title-blue-france);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.375rem;
+            font-weight: 700;
         }
-        .feature-list li {
-            margin: 8px 0;
+
+        .fr-text {
+            margin-bottom: 1rem;
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.625;
         }
-        .data-category {
-            background: #f8f9fa;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #2e5367;
+
+        .fr-text--lead {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--grey-625);
         }
-        .data-category h5 {
+
+        .fr-highlight {
+            background: linear-gradient(45deg, #e3f2fd 0%, #f3e5f5 100%);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--blue-france-975);
+        }
+
+        .fr-ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.25rem;
+        }
+
+        .fr-ul li {
+            margin-bottom: 0.5rem;
+            list-style-type: disc;
+        }
+
+        .fr-grid-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .fr-card {
+            background: white;
+            border: 1px solid var(--border-default-grey);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .fr-card__title {
+            color: var(--text-title-blue-france);
             margin-top: 0;
-            color: #2e5367;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            font-weight: 700;
         }
-        .data-list {
-            margin: 10px 0;
-            padding-left: 20px;
+
+        .fr-card__content {
+            font-size: 0.875rem;
+            line-height: 1.5;
         }
+
+        .fr-card__content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .fr-card__content li {
+            padding: 0.25rem 0;
+            border-bottom: 1px solid var(--grey-200);
+            font-size: 0.875rem;
+        }
+
+        .fr-card__content li:last-child {
+            border-bottom: none;
+        }
+
+        .fr-callout {
+            background: var(--grey-50);
+            padding: 1.5rem;
+            border-left: 4px solid var(--blue-france-975);
+            margin: 1.5rem 0;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+
+        .fr-callout__title {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--text-title-blue-france);
+        }
+
+        .fr-notice {
+            background: #fff;
+            border: 1px solid var(--blue-france-975);
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .fr-notice__title {
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+            color: var(--blue-france-975);
+        }
+
+        .fr-link {
+            color: var(--blue-france-975);
+            text-decoration: underline;
+        }
+
+        .fr-link:hover {
+            color: var(--blue-france-113);
+        }
+
+        .fr-icon {
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-weight: bold;
+            color: var(--blue-france-975);
+        }
+
+        .fr-mt-2w { margin-top: 1rem; }
+        .fr-mb-2w { margin-bottom: 1rem; }
+        .fr-mt-4w { margin-top: 2rem; }
+        .fr-mb-4w { margin-bottom: 2rem; }
     </style>
 </head>
 <body>
-    <ul class="nav nav-tabs" role="tablist">    
-        <li role="presentation" class="active">
-            <a href="#h_kartenn" aria-controls="profile" role="tab" data-toggle="tab" onclick="showTab('h_kartenn')">Mviewer</a>
-        </li>
-        <li role="presentation">
-            <a href="#h_aide" aria-controls="messages" role="tab" data-toggle="tab" onclick="showTab('h_aide')">Aide</a>
-        </li>
-        <li role="presentation">
-            <a href="#h_definition" aria-controls="profile" role="tab" data-toggle="tab" onclick="showTab('h_definition')">Lexique</a>
-        </li>
-        <li role="presentation">
-            <a href="#h_credits" aria-controls="settings" role="tab" data-toggle="tab" onclick="showTab('h_credits')">Crédits</a>
-        </li>   
-    </ul>
+    <div class="fr-container">
+        <ul class="fr-tabs" role="tablist">    
+            <li class="fr-tabs__tab fr-tabs__tab--selected" role="presentation">
+                <button class="fr-tabs__btn" onclick="showTab('h_about')" type="button" role="tab">À propos</button>
+            </li>
+            <li class="fr-tabs__tab" role="presentation">
+                <button class="fr-tabs__btn" onclick="showTab('h_data')" type="button" role="tab">Données disponibles</button>
+            </li>
+            <li class="fr-tabs__tab" role="presentation">
+                <button class="fr-tabs__btn" onclick="showTab('h_help')" type="button" role="tab">Guide d'utilisation</button>
+            </li>
+            <li class="fr-tabs__tab" role="presentation">
+                <button class="fr-tabs__btn" onclick="showTab('h_contact')" type="button" role="tab">Contact</button>
+            </li>   
+        </ul>
 
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="h_kartenn">
-            <h4>À propos du Visualiseur archéologique de Bretagne</h4>
-            <p>Le <strong>Visualiseur interactif archéologique de Bretagne</strong> est une application cartographique avancée dédiée à la découverte et l'exploration du patrimoine archéologique breton. Cet outil permet de visualiser, analyser et <strong>croiser</strong> les données archéologiques, historiques, géologiques et territoriales de la région.</p>
-            
-            <p><strong>Force principale :</strong> La capacité à superposer et croiser différentes couches de données permet une analyse spatiale et temporelle approfondie. Vous pouvez par exemple visualiser simultanément les sites archéologiques, le cadastre napoléonien, l'altimétrie et les données géologiques pour comprendre les logiques d'implantation historique.</p>
-            
-            <h5>Fonctionnalités principales :</h5>
-            <ul class="feature-list">
-                <li><strong>Navigation cartographique</strong> : Zoom, déplacement, géolocalisation</li>
-                <li><strong>Outils de mesure</strong> : Calcul de distances et surfaces</li>
-                <li><strong>Outils de dessin</strong> : Création de formes géométriques sur la carte</li>
-                <li><strong>Impression</strong> : Export de cartes en format image ou PDF</li>
-                <li><strong>Recherche d'adresses</strong> : Localisation via l'API IGN</li>
-                <li><strong>Gestion des couches</strong> : Activation/désactivation, opacité, légendes</li>
-                <li><strong>Croisement de données</strong> : Superposition de multiples sources d'information</li>
-                <li><strong>Interrogation des données</strong> : Informations détaillées sur les objets cartographiques</li>
-                <li><strong>Filtres attributaires</strong> : Sélection par période archéologique, type de données</li>
-                <li><strong>Cadastre interactif</strong> : Sélection parcellaire et consultation historique</li>
-                <li><strong>Ajout de données externes</strong> : Import de services WMS, API et données personnalisées</li>
-                <li><strong>Données multi-temporelles</strong> : Comparaison entre différentes époques (cadastre napoléonien, photos aériennes historiques)</li>
-            </ul>
+        <div class="fr-tabs-content">
+            <div class="fr-tab-pane fr-tab-pane--selected" id="h_about" role="tabpanel">
+                <h2 class="fr-h2">Visualiseur interactif archéologique de Bretagne</h2>
+                
+                <p class="fr-text fr-text--lead">À l'interface entre passé et présent, entre territoire et mémoire, le patrimoine archéologique breton révèle des millénaires d'occupation humaine. Pour comprendre et préserver ces témoins du passé, encore faut-il connaître leurs différentes facettes !</p>
 
-            <p><strong>Interopérabilité :</strong> Le visualiseur permet d'ajouter vos propres sources de données via les standards WMS, WMTS, ou API, offrant ainsi une plateforme d'analyse géographique extensible et personnalisable.</p>
-        </div>  
+                <p class="fr-text">Imaginé et créé dans le cadre de la valorisation du patrimoine archéologique régional, ce <strong>visualiseur interactif</strong> permet de visualiser, consulter et analyser les données archéologiques qui sont disponibles et utiles aux chercheurs, aménageurs, gestionnaires du patrimoine, et aux curieux. Vous trouverez sur ce portail une cartographie archéologique couvrant l'ensemble de la région bretonne, mais aussi des données complémentaires sur l'altimétrie, la géologie, les sols, et l'évolution des paysages.</p>
 
-        <div role="tabpanel" class="tab-pane" id="h_aide">
-            <h4>Aide</h4>
-            <p>Cette section présente les principales fonctionnalités du visualiseur :</p>
+                <div class="fr-highlight">
+                    <p class="fr-callout__title"><span class="fr-icon">🔍</span>Capacité d'analyse unique</p>
+                    <p>La force principale de cet outil réside dans sa capacité à <strong>superposer et croiser</strong> différentes couches de données pour une analyse spatiale et temporelle approfondie. Visualisez simultanément les sites archéologiques, le cadastre napoléonien, l'altimétrie et les données géologiques pour comprendre les logiques d'implantation historique.</p>
+                </div>
 
-            <h5>🗺️ Navigation</h5>
-            <ul>
-                <li>Utilisez la molette de la souris pour zoomer</li>
-                <li>Cliquez et glissez pour déplacer la carte</li>
-                <li>Utilisez les boutons + et - pour contrôler le zoom</li>
-                <li>Cliquez sur l'icône de géolocalisation pour vous situer</li>
-            </ul>
+                <h3 class="fr-h3">Fonctionnalités principales</h3>
+                <div class="fr-grid-row">
+                    <div class="fr-card">
+                        <h4 class="fr-card__title"><span class="fr-icon">🗺️</span>Navigation & Outils</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Navigation cartographique interactive</li>
+                                <li>Outils de mesure et de dessin</li>
+                                <li>Géolocalisation</li>
+                                <li>Impression et export</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="fr-card">
+                        <h4 class="fr-card__title"><span class="fr-icon">📊</span>Gestion des données</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Croisement de multiples sources</li>
+                                <li>Filtres par période archéologique</li>
+                                <li>Interrogation interactive</li>
+                                <li>Gestion des couches et opacité</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="fr-card">
+                        <h4 class="fr-card__title"><span class="fr-icon">🌐</span>Interopérabilité</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Import de services WMS, WMTS</li>
+                                <li>Ajout de données via API</li>
+                                <li>Données multi-temporelles</li>
+                                <li>Cadastre historique</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-            <h5>📏 Outils de mesure</h5>
-            <ul>
-                <li>Sélectionnez l'outil de mesure de distance ou de surface</li>
-                <li>Cliquez sur la carte pour commencer une mesure</li>
-                <li>Double-cliquez pour terminer</li>
-            </ul>
+                <div class="fr-callout">
+                    <p class="fr-callout__title">Plateforme extensible</p>
+                    <p>Le visualiseur permet d'ajouter vos propres sources de données via les standards WMS, WMTS, ou API, offrant ainsi une plateforme d'analyse géographique extensible et personnalisable pour vos projets de recherche ou d'aménagement.</p>
+                </div>
+            </div>
 
-            <h5>✏️ Outils de dessin</h5>
-            <ul>
-                <li>Activez l'outil de dessin dans la barre d'outils</li>
-                <li>Dessinez des polygones en cliquant sur la carte</li>
-                <li>Fermez le polygone automatiquement en approchant le curseur du point de départ</li>
-            </ul>
+            <div class="fr-tab-pane" id="h_data" role="tabpanel">
+                <h2 class="fr-h2">Données disponibles</h2>
+                
+                <p class="fr-text">Ce portail donne accès à de nombreuses couches de données couvrant l'ensemble de la région Bretagne, organisées par thématiques :</p>
+                
+                <div class="fr-grid-row">
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">🏛️ Archéologie</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>État de la connaissance archéologique en Bretagne</li>
+                                <li>Réseau viaire archéologique</li>
+                                <li>Opérations archéologiques (fouilles, sondages)</li>
+                                <li>Zones de présomption de prescriptions archéologiques (ZPPA)</li>
+                                <li>Filtres par périodes historiques</li>
+                            </ul>
+                        </div>
+                    </div>
 
-            <h5>🔍 Interrogation des données</h5>
-            <ul>
-                <li>Cliquez sur un objet de la carte pour afficher ses informations</li>
-                <li>Les détails s'affichent dans un panneau latéral</li>
-                <li>Utilisez les filtres pour sélectionner les données par période</li>
-            </ul>
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">⛰️ Altimétrie & Relief</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>MNT issu de LiDAR HD</li>
+                                <li>Ombrage RGE ALTI 1m</li>
+                                <li>Courbes de niveaux</li>
+                                <li>Modèles numériques de terrain</li>
+                            </ul>
+                        </div>
+                    </div>
 
-            <h5>🏠 Cadastre</h5>
-            <ul>
-                <li>Activez la couche "Sélection cadastrale"</li>
-                <li>Choisissez le département, la commune et la section</li>
-                <li>Cliquez sur une parcelle pour voir ses informations</li>
-            </ul>
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">🏘️ Cadastres</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Cadastre napoléonien</li>
+                                <li>Sélection cadastrale interactive</li>
+                                <li>Parcelles des personnes morales</li>
+                                <li>Bâti et parcelles actuelles</li>
+                                <li>Toponymie historique</li>
+                            </ul>
+                        </div>
+                    </div>
 
-            <p><a href="http://mviewerdoc.readthedocs.io/fr/latest/" target="_blank">📖 Lien vers la documentation complète</a></p>
-        </div>  
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">💧 Hydrographie</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Réseau hydrographique (SANDRE)</li>
+                                <li>BD Topo : surfaces en eau</li>
+                                <li>Cours d'eau et contexte hydrologique</li>
+                            </ul>
+                        </div>
+                    </div>
 
-        <div role="tabpanel" class="tab-pane" id="h_definition">
-            <h4>Lexique</h4>
-            <!-- Section lexique laissée vide pour le moment -->
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">🗺️ Géologie (BRGM)</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Cartes géologiques 1/50 000</li>
+                                <li>Carte géologique 1/1 000 000</li>
+                                <li>Carte lithologique simplifiée</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">🌱 Sols de Bretagne</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Matériau parental dominant</li>
+                                <li>Classes de texture</li>
+                                <li>Types de sols dominants</li>
+                                <li>Épaisseur et drainage</li>
+                                <li>Entités paysagères</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">🛰️ Images satellitaires</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Sentinel 2</li>
+                                <li>RapidEye</li>
+                                <li>SPOT</li>
+                                <li>Pléiades</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="fr-card">
+                        <h4 class="fr-card__title">🗾 Découpages territoriaux</h4>
+                        <div class="fr-card__content">
+                            <ul>
+                                <li>Communes</li>
+                                <li>Intercommunalités (EPCI)</li>
+                                <li>Limites administratives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fr-notice">
+                    <p class="fr-notice__title">📊 Richesse des données</p>
+                    <p>Plus de 30 couches de données sont disponibles, couvrant différentes échelles temporelles (du Paléolithique à nos jours) et spatiales (du local au régional). Chaque couche est documentée avec ses métadonnées et sources.</p>
+                </div>
+            </div>
+
+            <div class="fr-tab-pane" id="h_help" role="tabpanel">
+                <h2 class="fr-h2">Guide d'utilisation</h2>
+                
+                <h3 class="fr-h3"><span class="fr-icon">🗺️</span>Navigation sur la carte</h3>
+                <ul class="fr-ul">
+                    <li>Utilisez la molette de la souris pour zoomer/dézoomer</li>
+                    <li>Cliquez et glissez pour déplacer la carte</li>
+                    <li>Utilisez les boutons + et - pour contrôler le zoom</li>
+                    <li>Cliquez sur l'icône de géolocalisation pour vous situer</li>
+                    <li>La barre d'échelle vous indique la distance représentée</li>
+                </ul>
+
+                <h3 class="fr-h3"><span class="fr-icon">📏</span>Outils de mesure</h3>
+                <ul class="fr-ul">
+                    <li>Sélectionnez l'outil de mesure de distance ou de surface</li>
+                    <li>Cliquez sur la carte pour commencer une mesure</li>
+                    <li>Continuez à cliquer pour ajouter des points</li>
+                    <li>Double-cliquez pour terminer la mesure</li>
+                    <li>Les résultats s'affichent automatiquement</li>
+                </ul>
+
+                <h3 class="fr-h3"><span class="fr-icon">✏️</span>Outils de dessin</h3>
+                <ul class="fr-ul">
+                    <li>Activez l'outil de dessin dans la barre d'outils</li>
+                    <li>Dessinez des polygones en cliquant sur la carte</li>
+                    <li>Fermez automatiquement en approchant le curseur du point de départ</li>
+                    <li>Utilisez ces formes pour délimiter des zones d'étude</li>
+                </ul>
+
+                <h3 class="fr-h3"><span class="fr-icon">🔍</span>Interrogation des données</h3>
+                <ul class="fr-ul">
+                    <li>Cliquez sur un objet de la carte pour afficher ses informations</li>
+                    <li>Les détails s'affichent dans un panneau latéral ou popup</li>
+                    <li>Utilisez les filtres par période pour les données archéologiques</li>
+                    <li>Consultez les métadonnées de chaque couche</li>
+                </ul>
+
+                <h3 class="fr-h3"><span class="fr-icon">📊</span>Gestion des couches</h3>
+                <ul class="fr-ul">
+                    <li>Activez/désactivez les couches via le panneau latéral</li>
+                    <li>Ajustez l'opacité avec le curseur</li>
+                    <li>Consultez les légendes pour comprendre la symbologie</li>
+                    <li>Organisez l'ordre d'affichage des couches</li>
+                </ul>
+
+                <h3 class="fr-h3"><span class="fr-icon">🏠</span>Utilisation du cadastre</h3>
+                <ul class="fr-ul">
+                    <li>Activez la couche "Sélection cadastrale"</li>
+                    <li>Choisissez le département, la commune et la section</li>
+                    <li>Cliquez sur une parcelle pour voir ses informations</li>
+                    <li>Comparez avec le cadastre napoléonien</li>
+                </ul>
+
+                <div class="fr-callout">
+                    <p class="fr-callout__title">💡 Conseil d'utilisation</p>
+                    <p>Pour une analyse optimale, commencez par activer les couches de base (cadastre, relief), puis ajoutez progressivement les données thématiques. N'hésitez pas à jouer avec l'opacité pour superposer efficacement les informations.</p>
+                </div>
+
+                <p class="fr-mt-4w"><a href="http://mviewerdoc.readthedocs.io/fr/latest/" target="_blank" class="fr-link">📖 Documentation technique complète de Mviewer</a></p>
+            </div>
+
+            <div class="fr-tab-pane" id="h_contact" role="tabpanel">
+                <h2 class="fr-h2">Contact</h2>
+                
+                <p class="fr-text">Ce visualiseur a été développé dans le cadre de la valorisation du patrimoine archéologique de Bretagne.</p>
+                
+                <div class="fr-callout">
+                    <p class="fr-callout__title">Une question, une suggestion ?</p>
+                    <p>N'hésitez pas à nous contacter pour toute question relative au visualiseur ou aux données archéologiques.</p>
+                    <p><strong>Contact :</strong> <a href="mailto:contact@exemple.fr" class="fr-link">contact@exemple.fr</a></p>
+                </div>
+            </div>    
         </div>
-
-        <div role="tabpanel" class="tab-pane" id="h_credits">
-            <h4>Crédits</h4>
-            <!-- Section crédits laissée vide comme demandé -->
-        </div>    
     </div>
 
     <script>
         function showTab(tabId) {
             // Masquer tous les onglets
-            var tabs = document.querySelectorAll('.tab-pane');
+            var tabs = document.querySelectorAll('.fr-tab-pane');
             tabs.forEach(function(tab) {
-                tab.classList.remove('active');
+                tab.classList.remove('fr-tab-pane--selected');
             });
             
             // Désactiver tous les liens
-            var links = document.querySelectorAll('.nav-tabs a');
+            var links = document.querySelectorAll('.fr-tabs__tab');
             links.forEach(function(link) {
-                link.parentElement.classList.remove('active');
+                link.classList.remove('fr-tabs__tab--selected');
             });
             
             // Activer l'onglet sélectionné
-            document.getElementById(tabId).classList.add('active');
-            event.target.parentElement.classList.add('active');
+            document.getElementById(tabId).classList.add('fr-tab-pane--selected');
+            event.target.parentElement.classList.add('fr-tabs__tab--selected');
             
-            // Empêcher le comportement par défaut du lien
+            // Empêcher le comportement par défaut
             event.preventDefault();
         }
     </script>
