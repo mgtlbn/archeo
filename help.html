@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aide - Visualiseur archéologique de Bretagne</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        .nav-tabs {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            border-bottom: 2px solid #ddd;
+            display: flex;
+        }
+        .nav-tabs li {
+            margin-right: 10px;
+        }
+        .nav-tabs a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #666;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+        .nav-tabs .active a {
+            background: white;
+            color: #333;
+            border-bottom: 2px solid white;
+            margin-bottom: -2px;
+        }
+        .tab-content {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        h4 {
+            color: #2e5367;
+            border-bottom: 2px solid #2e5367;
+            padding-bottom: 10px;
+        }
+        .feature-list {
+            margin: 15px 0;
+        }
+        .feature-list li {
+            margin: 8px 0;
+        }
+        .data-category {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #2e5367;
+        }
+        .data-category h5 {
+            margin-top: 0;
+            color: #2e5367;
+        }
+        .data-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="nav nav-tabs" role="tablist">    
+        <li role="presentation" class="active">
+            <a href="#h_kartenn" aria-controls="profile" role="tab" data-toggle="tab" onclick="showTab('h_kartenn')">Mviewer</a>
+        </li>
+        <li role="presentation">
+            <a href="#h_aide" aria-controls="messages" role="tab" data-toggle="tab" onclick="showTab('h_aide')">Aide</a>
+        </li>
+        <li role="presentation">
+            <a href="#h_definition" aria-controls="profile" role="tab" data-toggle="tab" onclick="showTab('h_definition')">Lexique</a>
+        </li>
+        <li role="presentation">
+            <a href="#h_credits" aria-controls="settings" role="tab" data-toggle="tab" onclick="showTab('h_credits')">Crédits</a>
+        </li>   
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="h_kartenn">
+            <h4>À propos du Visualiseur archéologique de Bretagne</h4>
+            <p>Le <strong>Visualiseur interactif archéologique de Bretagne</strong> est une application cartographique avancée dédiée à la découverte et l'exploration du patrimoine archéologique breton. Cet outil permet de visualiser, analyser et <strong>croiser</strong> les données archéologiques, historiques, géologiques et territoriales de la région.</p>
+            
+            <p><strong>Force principale :</strong> La capacité à superposer et croiser différentes couches de données permet une analyse spatiale et temporelle approfondie. Vous pouvez par exemple visualiser simultanément les sites archéologiques, le cadastre napoléonien, l'altimétrie et les données géologiques pour comprendre les logiques d'implantation historique.</p>
+            
+            <h5>Fonctionnalités principales :</h5>
+            <ul class="feature-list">
+                <li><strong>Navigation cartographique</strong> : Zoom, déplacement, géolocalisation</li>
+                <li><strong>Outils de mesure</strong> : Calcul de distances et surfaces</li>
+                <li><strong>Outils de dessin</strong> : Création de formes géométriques sur la carte</li>
+                <li><strong>Impression</strong> : Export de cartes en format image ou PDF</li>
+                <li><strong>Recherche d'adresses</strong> : Localisation via l'API IGN</li>
+                <li><strong>Gestion des couches</strong> : Activation/désactivation, opacité, légendes</li>
+                <li><strong>Croisement de données</strong> : Superposition de multiples sources d'information</li>
+                <li><strong>Interrogation des données</strong> : Informations détaillées sur les objets cartographiques</li>
+                <li><strong>Filtres attributaires</strong> : Sélection par période archéologique, type de données</li>
+                <li><strong>Cadastre interactif</strong> : Sélection parcellaire et consultation historique</li>
+                <li><strong>Ajout de données externes</strong> : Import de services WMS, API et données personnalisées</li>
+                <li><strong>Données multi-temporelles</strong> : Comparaison entre différentes époques (cadastre napoléonien, photos aériennes historiques)</li>
+            </ul>
+
+            <p><strong>Interopérabilité :</strong> Le visualiseur permet d'ajouter vos propres sources de données via les standards WMS, WMTS, ou API, offrant ainsi une plateforme d'analyse géographique extensible et personnalisable.</p>
+        </div>  
+
+        <div role="tabpanel" class="tab-pane" id="h_aide">
+            <h4>Aide</h4>
+            <p>Cette section présente les principales fonctionnalités du visualiseur :</p>
+
+            <h5>🗺️ Navigation</h5>
+            <ul>
+                <li>Utilisez la molette de la souris pour zoomer</li>
+                <li>Cliquez et glissez pour déplacer la carte</li>
+                <li>Utilisez les boutons + et - pour contrôler le zoom</li>
+                <li>Cliquez sur l'icône de géolocalisation pour vous situer</li>
+            </ul>
+
+            <h5>📏 Outils de mesure</h5>
+            <ul>
+                <li>Sélectionnez l'outil de mesure de distance ou de surface</li>
+                <li>Cliquez sur la carte pour commencer une mesure</li>
+                <li>Double-cliquez pour terminer</li>
+            </ul>
+
+            <h5>✏️ Outils de dessin</h5>
+            <ul>
+                <li>Activez l'outil de dessin dans la barre d'outils</li>
+                <li>Dessinez des polygones en cliquant sur la carte</li>
+                <li>Fermez le polygone automatiquement en approchant le curseur du point de départ</li>
+            </ul>
+
+            <h5>🔍 Interrogation des données</h5>
+            <ul>
+                <li>Cliquez sur un objet de la carte pour afficher ses informations</li>
+                <li>Les détails s'affichent dans un panneau latéral</li>
+                <li>Utilisez les filtres pour sélectionner les données par période</li>
+            </ul>
+
+            <h5>🏠 Cadastre</h5>
+            <ul>
+                <li>Activez la couche "Sélection cadastrale"</li>
+                <li>Choisissez le département, la commune et la section</li>
+                <li>Cliquez sur une parcelle pour voir ses informations</li>
+            </ul>
+
+            <p><a href="http://mviewerdoc.readthedocs.io/fr/latest/" target="_blank">📖 Lien vers la documentation complète</a></p>
+        </div>  
+
+        <div role="tabpanel" class="tab-pane" id="h_definition">
+            <h4>Lexique</h4>
+            <!-- Section lexique laissée vide pour le moment -->
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="h_credits">
+            <h4>Crédits</h4>
+            <!-- Section crédits laissée vide comme demandé -->
+        </div>    
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Masquer tous les onglets
+            var tabs = document.querySelectorAll('.tab-pane');
+            tabs.forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+            
+            // Désactiver tous les liens
+            var links = document.querySelectorAll('.nav-tabs a');
+            links.forEach(function(link) {
+                link.parentElement.classList.remove('active');
+            });
+            
+            // Activer l'onglet sélectionné
+            document.getElementById(tabId).classList.add('active');
+            event.target.parentElement.classList.add('active');
+            
+            // Empêcher le comportement par défaut du lien
+            event.preventDefault();
+        }
+    </script>
+</body>
+</html>
